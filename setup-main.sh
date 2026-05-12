@@ -48,7 +48,15 @@ EOF
     #exec newgrp docker
 
     # Add wireshark
-    sudo apt install wireshark -y
+    echo "wireshark-common wireshark-common/install-setuid boolean true" | sudo debconf-set-selections
+    sudo DEBIAN_FRONTEND=noninteractive apt install wireshark -y
+    sudo usermod -aG wireshark $USER
+
+    # Add Steam
+    sudo dpkg --add-architecture i386
+    sudo apt update
+    sudo apt --fix-broken install
+    sudo apt install steam-installer -y
 }
 
 main (){
