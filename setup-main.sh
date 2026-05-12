@@ -26,7 +26,7 @@ setup () {
 main (){
     [[ $# -lt 1 ]] && usage $@
 
-    [[ $1 -eq --setup ]] && setup
+    [[ $1 -eq '--setup' ]] && setup
 }
 
 main $@
