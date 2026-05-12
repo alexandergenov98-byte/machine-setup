@@ -41,16 +41,20 @@ Architectures: $(dpkg --print-architecture)
 Signed-By: /etc/apt/keyrings/docker.asc
 EOF
     sudo apt update
-
     sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
     sudo usermod -aG docker $USER
 
+    sudo apt install util-linux-extra -y
+    exec newgrp docker
+
+    # Add wireshark
+    sudo apt install wireshark -y
 }
 
 main (){
     [[ $# -lt 1 ]] && usage $@
 
-    [[ $1 == '--setup' ]] && setup
+    [[ $1 == '--setup' ]] && setup && exit 0
 
 }
 
