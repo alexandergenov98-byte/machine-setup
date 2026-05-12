@@ -24,7 +24,7 @@ setup () {
 }
 
 main (){
-    [[ $# -gt 0 ]] && usage $@
+    [[ $# -lt 1 ]] && usage $@
 
     [[ $1 -eq --setup ]] && setup
 }
