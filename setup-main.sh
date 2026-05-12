@@ -45,7 +45,7 @@ EOF
     sudo usermod -aG docker $USER
 
     sudo apt install util-linux-extra -y
-    exec newgrp docker
+    #exec newgrp docker
 
     # Add wireshark
     sudo apt install wireshark -y
