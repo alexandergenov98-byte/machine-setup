@@ -16,6 +16,9 @@ setup () {
     # Setup Basic utilities
     sudo apt install wget curl gpg -y
 
+    # Install VIM
+    sudo apt install vim -y
+
     # Install VS code
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/packages.microsoft.gpg > /dev/null
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
@@ -47,16 +50,28 @@ EOF
     sudo apt install util-linux-extra -y
     #exec newgrp docker
 
-    # Add wireshark
+    # Install wireshark
     echo "wireshark-common wireshark-common/install-setuid boolean true" | sudo debconf-set-selections
     sudo DEBIAN_FRONTEND=noninteractive apt install wireshark -y
     sudo usermod -aG wireshark $USER
 
-    # Add Steam
+    # Install Steam
     sudo dpkg --add-architecture i386
     sudo apt update
     sudo apt --fix-broken install
     sudo apt install steam-installer -y
+    sudo sed -i 's/if \[ -n "\$new_installation" \]/if false echo/' $(which steam) # Remove install prompt
+    steam 2>&1 1>/tmp/steam_install.log &
+
+    # Install VLC Player
+    sudo apt install vlc-bin -y
+
+    # Install Viber
+    sudo snap install --edge viber-official
+    #  Apply these settings to allow the viber snap package to have access to microphone and camera
+    #  sudo snap connect viber-official:camera
+    #  sudo snap connect viber-official:audio-record
+
 }
 
 main (){
