@@ -1,11 +1,12 @@
 #!/bin/bash
 
 usage () {
-    [[ $# -gt 0 ]] && exit 1
     printf "usage %s <args>\n" $0
     printf " ARGS \n"
     printf " --dry-run \n"
     printf " --setup \n"
+
+    exit 1
 }
 
 setup () {
@@ -23,7 +24,9 @@ setup () {
 }
 
 main (){
-    usage $@
+    [[ $# -gt 0 ]] && usage $@
+
+    [[ $1 -eq --setup ]] && setup
 }
 
 main $@
